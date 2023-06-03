@@ -1,4 +1,4 @@
-class NotesService {
+class NotesHandler {
   constructor(service) {
     this._service = service;
   }
@@ -37,7 +37,7 @@ class NotesService {
     };
   }
 
-  getIdByNoteHandler(request, h) {
+  getNoteByIdHandler(request, h) {
     try {
       const { id } = request.params;
       const note = this._service.getNoteById(id);
@@ -96,4 +96,4 @@ class NotesService {
   }
 }
 
-module.exports = NotesService;
+module.exports = NotesHandler;

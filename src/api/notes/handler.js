@@ -1,6 +1,12 @@
 class NotesHandler {
   constructor(service) {
     this._service = service;
+
+    this.postNoteHandler = this.postNoteHandler.bind(this);
+    this.getNotesHandler = this.getNotesHandler.bind(this);
+    this.getNoteByIdHandler = this.getNoteByIdHandler.bind(this);
+    this.putNoteByIdHandler = this.putNoteByIdHandler.bind(this);
+    this.deleteNoteByIdHandler = this.deleteNoteByIdHandler.bind(this);
   }
 
   postNoteHandler(request, h) {
@@ -8,6 +14,7 @@ class NotesHandler {
       const { title = 'untitled', body, tags } = request.payload;
 
       const noteId = this._service.addNote({ title, body, tags });
+
       const response = h.response({
         status: 'success',
         message: 'Catatan berhasil ditambahkan',
@@ -28,7 +35,7 @@ class NotesHandler {
   }
 
   getNotesHandler() {
-    const notes = this._service.addNotes();
+    const notes = this._service.getNotes();
     return {
       status: 'success',
       data: {
@@ -52,7 +59,7 @@ class NotesHandler {
         status: 'fail',
         message: error.message,
       });
-      response.code(400);
+      response.code(404);
       return response;
     }
   }
@@ -62,6 +69,7 @@ class NotesHandler {
       const { id } = request.params;
 
       this._service.editNoteById(id, request.payload);
+
       return {
         status: 'success',
         message: 'Catatan berhasil diperbarui',
@@ -71,7 +79,7 @@ class NotesHandler {
         status: 'fail',
         message: error.message,
       });
-      response.code(400);
+      response.code(404);
       return response;
     }
   }
@@ -79,7 +87,6 @@ class NotesHandler {
   deleteNoteByIdHandler(request, h) {
     try {
       const { id } = request.params;
-
       this._service.deleteNoteById(id);
       return {
         status: 'success',
@@ -88,9 +95,9 @@ class NotesHandler {
     } catch (error) {
       const response = h.response({
         status: 'fail',
-        message: error.message,
+        message: 'Catatan gagal dihapus. Id tidak ditemukan',
       });
-      response.code(400);
+      response.code(404);
       return response;
     }
   }

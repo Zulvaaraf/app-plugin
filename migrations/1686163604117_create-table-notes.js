@@ -15,7 +15,7 @@ exports.up = (pgm) => {
       notNull: true,
     },
     tags: {
-      type: 'TEXT',
+      type: 'TEXT[]',
       notNull: true,
     },
     created_At: {

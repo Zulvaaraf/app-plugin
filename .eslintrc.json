@@ -12,6 +12,7 @@
     "no-unused-vars": ["off", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
     "class-methods-use-this": "off",
     "no-underscore-dangle": "off",
-    "import/no-extraneous-dependencies": ["off", { "devDependencies": false, "optionalDependencies": false, "peerDependencies": false }]
+    "import/no-extraneous-dependencies": ["off", { "devDependencies": false, "optionalDependencies": false, "peerDependencies": false }],
+    "object-curly-newline": "off"
   }
 }

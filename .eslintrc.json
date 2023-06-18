@@ -11,6 +11,7 @@
     "no-console": "off",
     "no-underscore-dangle": "off",
     "import/no-extraneous-dependencies": ["off", { "devDependencies": false, "optionalDependencies": false, "peerDependencies": false }],
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "max-len": "off"
   }
 }

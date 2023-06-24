@@ -7,6 +7,18 @@ class CollaborationsService {
     this._pool = new Pool();
   }
 
+  async verifyCollabolator(noteId, userId) {
+    const query = {
+      text: 'SELECT * FROM collaborations WHERE note_id = $1 AND user_id = $2',
+      values: [noteId, userId],
+    };
+
+    const result = await this._pool.query(query);
+    if (!result.rows.length) {
+      throw new InvariantError('Kolaborasi gagal diverifikasi');
+    }
+  }
+
   async addCollaboration(noteId, userId) {
     const id = `collab-${nanoid(16)}`;
 
@@ -32,18 +44,6 @@ class CollaborationsService {
     const result = await this._pool.query(query);
     if (!result.rows.length) {
       throw new InvariantError('Kolaborasi gagal dihapus');
-    }
-  }
-
-  async verifyCollabolator(noteId, userId) {
-    const query = {
-      text: 'SELECT * FROM collaborations WHERE note_id = $1 AND user_id = $2',
-      values: [noteId, userId],
-    };
-
-    const result = await this._pool.query(query);
-    if (!result.rows.length) {
-      throw new InvariantError('Kolaborasi gagal diverifikasi');
     }
   }
 }
